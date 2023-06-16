@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class LoginServiceImpl implements LoginService {
-
-    private UserRepository userRepository;
-    @Override
+    private final UserRepository userRepository;
+    @Override // todo 로그인 인가 인터셉터 or 리졸버
     public String login(LoginRequest loginRequest) {
         User findUser = userRepository.findByUserAccountAndPassword(loginRequest.getUserAccount(), loginRequest.getPassword()).orElseThrow(InvalidLoginInformation::new);
         return findUser.getUserAccount();
