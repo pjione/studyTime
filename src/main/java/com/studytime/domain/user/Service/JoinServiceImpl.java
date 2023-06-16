@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Service
 public class JoinServiceImpl implements JoinService{
     private final UserRepository userRepository;
 

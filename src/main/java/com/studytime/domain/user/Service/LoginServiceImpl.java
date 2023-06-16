@@ -5,10 +5,12 @@ import com.studytime.domain.user.repository.UserRepository;
 import com.studytime.exception.InvalidLoginInformation;
 import com.studytime.web.request.LoginRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Service
 public class LoginServiceImpl implements LoginService {
 
     private UserRepository userRepository;
