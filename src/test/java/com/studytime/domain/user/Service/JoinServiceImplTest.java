@@ -29,7 +29,7 @@ class JoinServiceImplTest {
     void joinSuccess(){
         JoinRequest joinRequest = JoinRequest.builder()
                 .name("지원")
-                .gender(Gender.valueOf("MAN"))
+                .gender(Gender.MAN)
                 .phone("010-1111-1111")
                 .userAccount("jiwon")
                 .password("1234")
@@ -49,7 +49,7 @@ class JoinServiceImplTest {
 
         User user = User.builder()
                 .name("지원")
-                .gender(Gender.valueOf("MAN"))
+                .gender(Gender.MAN)
                 .phone("010-1111-1111")
                 .userAccount("jiwon")
                 .password("1234")
@@ -58,7 +58,7 @@ class JoinServiceImplTest {
 
         JoinRequest joinRequest = JoinRequest.builder()
                 .name("지원")
-                .gender(Gender.valueOf("MAN"))
+                .gender(Gender.MAN)
                 .phone("010-1111-1111")
                 .userAccount("jiwon")
                 .password("1234")

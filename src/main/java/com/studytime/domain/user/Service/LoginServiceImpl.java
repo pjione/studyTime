@@ -18,4 +18,6 @@ public class LoginServiceImpl implements LoginService {
         User findUser = userRepository.findByUserAccountAndPassword(loginRequest.getUserAccount(), loginRequest.getPassword()).orElseThrow(InvalidLoginInformation::new);
         return findUser.getUserAccount();
     }
+
+    //todo 회원 목록(페이징) 조회 수정 삭제
 }

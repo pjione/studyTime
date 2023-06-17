@@ -1,6 +1,7 @@
 package com.studytime.domain.study;
 
 import com.studytime.domain.BaseTimeEntity;
+import com.studytime.domain.enums.*;
 import com.studytime.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -17,41 +18,48 @@ public class Study extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "study_id")
     private Long id;
+
     private String title;
     @Lob
     private String content;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @Enumerated(value = EnumType.STRING)
-    private Category category;
-    @Embedded
-    private Address address;
-
-    private Integer recruitCnt;
     private Integer joinCnt;
-
     private LocalDateTime startedAt;
     private LocalDateTime expiredAt;
-    private Integer period;
+
+    @Enumerated(value = EnumType.STRING)
+    private Period period;
     @Enumerated(value = EnumType.STRING)
     private StudyStatus status;
     @Enumerated(value = EnumType.STRING)
     private ProcessType processType;
+    @Enumerated(value = EnumType.STRING)
+    private Category category;
+    @Enumerated(value = EnumType.STRING)
+    private RecruitCnt recruitCnt;
+
+    @Embedded
+    private Address address;
 
     @Builder
-    public Study(String title, String content, User user, Category category, Address address, Integer recruitCnt, Integer joinCnt, LocalDateTime startedAt, LocalDateTime expiredAt, Integer period, StudyStatus status, ProcessType processType) {
+    public Study(String title, String content, User user, LocalDateTime startedAt, LocalDateTime expiredAt, Period period, ProcessType processType, Category category, RecruitCnt recruitCnt, Address address) {
         this.title = title;
         this.content = content;
         this.user = user;
-        this.category = category;
-        this.address = address;
-        this.recruitCnt = recruitCnt;
-        this.joinCnt = joinCnt;
         this.startedAt = startedAt;
         this.expiredAt = expiredAt;
         this.period = period;
-        this.status = status;
         this.processType = processType;
+        this.category = category;
+        this.recruitCnt = recruitCnt;
+        this.address = address;
+    }
+    public void addJoinCnt(){
+        joinCnt++;
+    }
+    public void changeStatus(StudyStatus status){
+        this.status = status;
     }
 }

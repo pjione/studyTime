@@ -1,7 +1,7 @@
 package com.studytime.domain.studyuser;
 
 import com.studytime.domain.study.Study;
-import com.studytime.domain.study.StudyStatus;
+import com.studytime.domain.enums.StudyStatus;
 import com.studytime.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
