@@ -1,5 +1,6 @@
 package com.studytime.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,5 +14,9 @@ public enum Period {
 
     private final String period;
 
+    @JsonCreator
+    public static Period from(String s) {
+        return Period.valueOf(s.toUpperCase());
+    }
 
 }
