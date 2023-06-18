@@ -1,5 +1,6 @@
 package com.studytime.domain.study.service;
 
+import com.studytime.domain.study.Address;
 import com.studytime.domain.study.Study;
 import com.studytime.domain.study.repository.StudyRepository;
 import com.studytime.domain.user.User;
@@ -29,7 +30,11 @@ public class StudyServiceImpl implements StudyService{
                 .content(studyAddRequest.getContent())
                 .category(studyAddRequest.getCategory())
                 .recruitCnt(studyAddRequest.getRecruitCnt())
-                .address(studyAddRequest.getAddress())
+                .address(Address.builder()
+                        .street(studyAddRequest.getStreet())
+                        .city(studyAddRequest.getCity())
+                        .zipcode(studyAddRequest.getZipcode())
+                        .build())
                 .expiredAt(studyAddRequest.getExpiredAt())
                 .startedAt(studyAddRequest.getStartedAt())
                 .period(studyAddRequest.getPeriod())

@@ -53,16 +53,12 @@ class StudyServiceImplTest {
 
         LocalDate expiredAt = LocalDate.of(2023, 6, 25);
 
-        Address address = Address.builder()
-                .city("서울시")
-                .zipcode("10123")
-                .street("테헤란로")
-                .build();
-
         StudyAddRequest studyAddRequest = StudyAddRequest.builder()
                 .userAccount("asdf1234")
                 .period(Period.ONE)
-                .address(address)
+                .zipcode("10123")
+                .city("서울시")
+                .street("테헤란로")
                 .expiredAt(expiredAt)
                 .content("코딩스터디입니다.")
                 .title("안녕하세요.")

@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -21,28 +22,32 @@ public class StudyAddRequest {
     private final String title;
     @NotBlank(message = "내용을 입력해주세요.")
     private final String content;
-    @NotBlank(message = "카테고리를 입력해주세요.")
+    @NotNull(message = "카테고리를 입력해주세요.")
     private final Category category;
-    private final Address address;
-    @NotBlank(message = "인원을 입력해주세요.")
+    private final String city;
+    private final String street;
+    private final String zipcode;
+    @NotNull(message = "인원을 입력해주세요.")
     @Min(value = 2, message = "2명 이상 가능합니다.")
     private final Integer recruitCnt;
-    @NotBlank(message = "시작 날짜를 입력해주세요.")
+    @NotNull(message = "시작 날짜를 입력해주세요.")
     @DateTimeFormat(pattern = "yyyy_MM_dd")
     private final LocalDate startedAt;
     @DateTimeFormat(pattern = "yyyy_MM_dd")
     private final LocalDate expiredAt;
-    @NotBlank(message = "개월을 입력해주세요.")
+    @NotNull(message = "개월을 입력해주세요.")
     private final Period period;
-    @NotBlank(message = "진행방식을 입력해주세요.")
+    @NotNull(message = "진행방식을 입력해주세요.")
     private final ProcessType processType;
     @Builder
-    public StudyAddRequest(String userAccount, String title, String content, Category category, Address address, Integer recruitCnt, LocalDate startedAt, LocalDate expiredAt, Period period, ProcessType processType) {
+    public StudyAddRequest(String userAccount, String title, String content, Category category, String city, String street, String zipcode, Integer recruitCnt, LocalDate startedAt, LocalDate expiredAt, Period period, ProcessType processType) {
         this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.category = category;
-        this.address = address;
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
         this.recruitCnt = recruitCnt;
         this.startedAt = startedAt;
         this.expiredAt = expiredAt;

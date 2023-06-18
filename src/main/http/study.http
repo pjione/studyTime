@@ -1,0 +1,15 @@
+POST http://localhost/study
+Content-Type: application/json
+
+{
+  "title" : "제목입니다.",
+  "content" : "내용입니다.",
+  "userAccount" : "jiwon",
+  "city" : "서울시",
+  "period" : "one",
+  "expiredAt" : "2023-06-25",
+  "category" : "coding",
+  "recruitCnt" : 3,
+  "processType" : "ON",
+  "startedAt" : "2023-06-27"
+}
