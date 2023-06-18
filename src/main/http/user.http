@@ -1,10 +1,22 @@
-
+### 회원가입
 POST http://localhost/join
 Content-Type: application/json
 
 {
-  "userAccount": "jiwon2",
+  "userAccount": "jiwon",
   "password" : "1234",
   "name" : "지원",
   "gender" : "man"
 }
+
+### 로그인
+POST http://localhost/login
+Content-Type: application/json
+
+{
+"userAccount": "jiwon",
+"password" : "1234"
+}
+
+
+
