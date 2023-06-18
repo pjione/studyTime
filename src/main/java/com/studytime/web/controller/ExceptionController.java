@@ -1,8 +1,10 @@
 package com.studytime.web.controller;
 
+import com.studytime.exception.StudyTimeException;
 import com.studytime.web.response.ErrorResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,5 +35,15 @@ public class ExceptionController {
                 .validation(validation)
                 .build();
     }
+    @ExceptionHandler(StudyTimeException.class)
+    public ResponseEntity<ErrorResponse> exception(StudyTimeException e){
 
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .code(String.valueOf(e.getStatusCode()))
+                .message(e.getMessage())
+                .build();
+
+        return ResponseEntity.status(e.getStatusCode())
+                .body(errorResponse);
+    }
 }

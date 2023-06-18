@@ -5,7 +5,7 @@ public class UnAuthorized extends StudyTimeException{
         super("로그인을 해주세요.");
     }
     @Override
-    int getStatusCode() {
+    public int getStatusCode() {
         return 401;
     }
 }

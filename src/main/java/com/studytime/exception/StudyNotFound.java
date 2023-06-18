@@ -6,7 +6,7 @@ public class StudyNotFound extends StudyTimeException{
     }
 
     @Override
-    int getStatusCode() {
+    public int getStatusCode() {
         return 404;
     }
 }

@@ -1,5 +1,6 @@
 package com.studytime.web.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ErrorResponse {
 
     private final String code;

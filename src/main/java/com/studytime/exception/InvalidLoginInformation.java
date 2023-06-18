@@ -5,7 +5,7 @@ public class InvalidLoginInformation extends StudyTimeException{
         super("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
     @Override
-    int getStatusCode() {
+    public int getStatusCode() {
         return 401;
     }
 }
