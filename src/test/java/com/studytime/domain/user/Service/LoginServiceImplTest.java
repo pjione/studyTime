@@ -26,6 +26,9 @@ class LoginServiceImplTest {
 
     @BeforeEach
     void userSet(){
+
+        userRepository.deleteAll();
+
         User user = User.builder()
                 .name("지원")
                 .gender(Gender.valueOf("MAN"))

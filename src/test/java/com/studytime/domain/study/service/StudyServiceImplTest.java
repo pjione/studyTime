@@ -35,6 +35,8 @@ class StudyServiceImplTest {
 
     @BeforeEach
     void userSet(){
+        studyRepository.deleteAll();
+
         User user = User.builder()
                 .name("지원")
                 .gender(Gender.valueOf("MAN"))

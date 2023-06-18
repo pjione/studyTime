@@ -1,11 +1,13 @@
 package com.studytime.domain.user.Service;
 
+import com.studytime.domain.study.repository.StudyRepository;
 import com.studytime.domain.user.Gender;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
 import com.studytime.exception.AlreadyExistsUserAccountException;
 import com.studytime.web.request.JoinRequest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,13 @@ class JoinServiceImplTest {
     private JoinService joinService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private StudyRepository studyRepository;
+
+    @BeforeEach
+    void clean(){
+        userRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("회원가입 성공")

@@ -1,0 +1,10 @@
+
+POST http://localhost/join
+Content-Type: application/json
+
+{
+  "userAccount": "jiwon",
+  "password" : "1234",
+  "name" : "지원",
+  "gender" : "MAN"
+}
