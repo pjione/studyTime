@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -26,8 +27,10 @@ public class Study extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
     private Integer joinCnt;
-    private LocalDateTime startedAt;
-    private LocalDateTime expiredAt;
+    private Integer recruitCnt;
+    private LocalDate startedAt;
+    private LocalDate expiredAt;
+
 
     @Enumerated(value = EnumType.STRING)
     private Period period;
@@ -37,25 +40,26 @@ public class Study extends BaseTimeEntity {
     private ProcessType processType;
     @Enumerated(value = EnumType.STRING)
     private Category category;
-    @Enumerated(value = EnumType.STRING)
-    private RecruitCnt recruitCnt;
 
     @Embedded
     private Address address;
 
     @Builder
-    public Study(String title, String content, User user, LocalDateTime startedAt, LocalDateTime expiredAt, Period period, ProcessType processType, Category category, RecruitCnt recruitCnt, Address address) {
+    public Study(String title, String content, User user, Integer recruitCnt, LocalDate startedAt, LocalDate expiredAt, Period period, ProcessType processType, Category category, Address address) {
         this.title = title;
         this.content = content;
         this.user = user;
+        this.joinCnt = 1;
+        this.recruitCnt = recruitCnt;
         this.startedAt = startedAt;
         this.expiredAt = expiredAt;
         this.period = period;
+        this.status = StudyStatus.READY;
         this.processType = processType;
         this.category = category;
-        this.recruitCnt = recruitCnt;
         this.address = address;
     }
+
     public void addJoinCnt(){
         joinCnt++;
     }

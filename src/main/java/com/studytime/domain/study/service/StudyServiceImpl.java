@@ -36,7 +36,8 @@ public class StudyServiceImpl implements StudyService{
                 .processType(studyAddRequest.getProcessType())
                 .build();
 
-        studyRepository.save(study);
+         studyRepository.save(study);
+
         // todo -> 등록시 getMapping에  enum타입 카테고리, ProcessType 둥 리스트 반환 (to select box)
     }
 }
