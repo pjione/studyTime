@@ -7,9 +7,14 @@ import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
 import com.studytime.exception.UnAuthorized;
 import com.studytime.web.request.StudyAddRequest;
+import com.studytime.web.request.StudySearchRequest;
+import com.studytime.web.response.StudyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +49,15 @@ public class StudyServiceImpl implements StudyService{
          studyRepository.save(study);
 
         // todo -> 등록시 getMapping에  enum타입 카테고리, ProcessType 둥 리스트 반환 (to select box)
+    }
+
+    @Override
+    public List<StudyResponse> studyList(StudySearchRequest studySearchRequest) {
+
+        return studyRepository.getList(studySearchRequest).stream()
+                .map(s -> StudyResponse.builder()
+                        .study(s)
+                        .build())
+                .collect(Collectors.toList());
     }
 }
