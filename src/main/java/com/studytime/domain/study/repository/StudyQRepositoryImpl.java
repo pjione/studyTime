@@ -1,10 +1,12 @@
 package com.studytime.domain.study.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.studytime.domain.enums.StudyStatus;
 import com.studytime.domain.study.QStudy;
 import com.studytime.domain.study.Study;
 import com.studytime.web.request.StudySearchRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,5 +43,13 @@ public class StudyQRepositoryImpl implements StudyQRepository{
                 .fetch();
     }
 
-
+    @Override
+    @Transactional
+    public void updateStudyStatus(StudyStatus status, Long studyId) {
+        jpaQueryFactory
+                .update(QStudy.study)
+                .set(QStudy.study.status, status)
+                .where(QStudy.study.id.eq(studyId))
+                .execute();
+    }
 }

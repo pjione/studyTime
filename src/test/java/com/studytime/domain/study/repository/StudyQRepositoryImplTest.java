@@ -3,11 +3,13 @@ package com.studytime.domain.study.repository;
 import com.studytime.domain.enums.Category;
 import com.studytime.domain.enums.Period;
 import com.studytime.domain.enums.ProcessType;
+import com.studytime.domain.enums.StudyStatus;
 import com.studytime.domain.study.Address;
 import com.studytime.domain.study.Study;
 import com.studytime.domain.user.Gender;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
+import com.studytime.exception.StudyNotFound;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudySearchRequest;
 import org.junit.jupiter.api.Assertions;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,9 @@ class StudyQRepositoryImplTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EntityManager em;
 
     @BeforeEach
     void setup(){
@@ -134,5 +140,23 @@ class StudyQRepositoryImplTest {
         Assertions.assertEquals("안녕하세요.30", list.get(0).getTitle());
     }
 
+    @Test
+    @DisplayName("스터디 상태 승인으로 변경 - 관리자")
+    void changeStudyStatus(){
+        StudySearchRequest searchRequest = StudySearchRequest.builder()
+                .build();
+
+        List<Study> list = studyRepository.getList(searchRequest);
+
+        //when
+        studyRepository.updateStudyStatus(StudyStatus.PROGRESSED, list.get(0).getId());
+        em.clear();
+
+        Study study = studyRepository.findById(list.get(0).getId()).orElseThrow(StudyNotFound::new);
+
+        //then
+        assertEquals(StudyStatus.PROGRESSED, study.getStatus());
+
+    }
     
 }
