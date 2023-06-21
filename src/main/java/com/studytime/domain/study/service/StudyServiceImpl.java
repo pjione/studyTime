@@ -5,6 +5,7 @@ import com.studytime.domain.study.Study;
 import com.studytime.domain.study.repository.StudyRepository;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
+import com.studytime.exception.StudyNotFound;
 import com.studytime.exception.UnAuthorized;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudySearchRequest;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,5 +61,13 @@ public class StudyServiceImpl implements StudyService{
                         .study(s)
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudyResponse getStudy(Long studyId) {
+        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
+        return StudyResponse.builder()
+                .study(study)
+                .build();
     }
 }

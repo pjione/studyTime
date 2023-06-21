@@ -43,6 +43,7 @@ class StudyServiceImplTest {
     @BeforeEach
     void userSet(){
         studyRepository.deleteAll();
+        userRepository.deleteAll();
 
         user = User.builder()
                 .name("지원")
@@ -118,6 +119,41 @@ class StudyServiceImplTest {
         //then
         assertEquals(10L, studyResponses.size());
         assertEquals("안녕하세요.30", studyResponses.get(0).getTitle());
+    }
+
+    @Test
+    @DisplayName("스터디 조회")
+    void getStudy(){
+
+        LocalDate expiredAt = LocalDate.of(2023, 6, 25);
+
+        List<Study> studyList = IntStream.range(0, 30)
+                .mapToObj(i -> Study.builder()
+                        .user(user)
+                        .period(Period.ONE)
+                        .address(Address.builder()
+                                .zipcode("10123")
+                                .city("서울시")
+                                .street("테헤란로")
+                                .build())
+                        .expiredAt(expiredAt)
+                        .content("코딩스터디입니다.")
+                        .title("안녕하세요." + (i+1))
+                        .category(Category.CODING)
+                        .recruitCnt(3)
+                        .startedAt(expiredAt.plusDays(2))
+                        .processType(ProcessType.ON)
+                        .build()).collect(Collectors.toList());
+
+        studyRepository.saveAll(studyList);
+
+
+        //when
+        StudyResponse studyResponse = studyService.getStudy(studyList.get(0).getId());
+
+        //then
+        assertEquals("안녕하세요.1", studyResponse.getTitle());
+
     }
 
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public interface StudyService {
     void addStudy(StudyAddRequest studyAddRequest);
     List<StudyResponse> studyList(StudySearchRequest studySearchRequest);
+    StudyResponse getStudy(Long studyId);
 }
