@@ -18,6 +18,8 @@ public class StudyUser {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "study_user_id")
     private Long id;
+
+    @Enumerated(EnumType.STRING)
     private StudyStatus status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -25,6 +27,8 @@ public class StudyUser {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "study_id")
     private Study study;
+
+    @Enumerated(EnumType.STRING)
     private StudyUserStatus studyUserStatus;
     @Builder
     public StudyUser(StudyStatus status, User user, Study study, StudyUserStatus studyUserStatus) {
