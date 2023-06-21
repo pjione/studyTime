@@ -22,10 +22,10 @@ public class StudyResponse {
     private final Integer recruitCnt;
     private final LocalDate startedAt;
     private final LocalDate expiredAt;
-    private final Period period;
-    private final StudyStatus status;
-    private final ProcessType processType;
-    private final Category category;
+    private final String period;
+    private final String status;
+    private final String processType;
+    private final String category;
     private final Address address;
 
     @Builder
@@ -38,10 +38,10 @@ public class StudyResponse {
         this.recruitCnt = study.getRecruitCnt();
         this.startedAt = study.getStartedAt();
         this.expiredAt = study.getExpiredAt();
-        this.period = study.getPeriod();
-        this.status = study.getStatus();
-        this.processType = study.getProcessType();
-        this.category = study.getCategory();
+        this.period = study.getPeriod().getPeriod();
+        this.status = study.getStatus().getStudyStatus();
+        this.processType = study.getProcessType().getProcessType();
+        this.category = study.getCategory().getCategory();
         this.address = study.getAddress();
     }
 }

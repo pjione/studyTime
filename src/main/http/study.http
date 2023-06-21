@@ -1,10 +1,10 @@
-GET http://localhost/study/1535
+GET http://localhost/study/1779
 
 ###스터디 등록 거절
-PATCH http://localhost/study/refuse/1260
+PATCH http://localhost/study/refuse/1779
 
 ###스터디 등록 승인
-PATCH http://localhost/study/approve/1233
+PATCH http://localhost/study/approve/1779
 
 
 

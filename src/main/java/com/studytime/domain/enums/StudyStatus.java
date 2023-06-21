@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum StudyStatus {
-    READY, PROGRESSED, REFUSED;
+    READY("대기"), PROGRESSED("숭인"), REFUSED("거절");
 
+    private final String studyStatus;
     @JsonCreator
     public static StudyStatus from(String s) {
         return StudyStatus.valueOf(s.toUpperCase());
