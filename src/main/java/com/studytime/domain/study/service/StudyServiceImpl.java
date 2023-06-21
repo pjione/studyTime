@@ -1,12 +1,16 @@
 package com.studytime.domain.study.service;
 
+import com.studytime.domain.enums.StudyStatus;
 import com.studytime.domain.study.Address;
 import com.studytime.domain.study.Study;
 import com.studytime.domain.study.repository.StudyRepository;
+import com.studytime.domain.study.repository.StudyUserRepository;
+import com.studytime.domain.studyuser.StudyUser;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
 import com.studytime.exception.StudyNotFound;
 import com.studytime.exception.UnAuthorized;
+import com.studytime.exception.UserNotFound;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudySearchRequest;
 import com.studytime.web.response.StudyResponse;
@@ -25,6 +29,7 @@ public class StudyServiceImpl implements StudyService{
 
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
+    private final StudyUserRepository studyUserRepository;
     @Override
     @Transactional
     public void addStudy(StudyAddRequest studyAddRequest) {
@@ -69,5 +74,27 @@ public class StudyServiceImpl implements StudyService{
         return StudyResponse.builder()
                 .study(study)
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public void approveStudy(Long studyId) {
+        studyRepository.updateStudyStatus(StudyStatus.PROGRESSED, studyId);
+
+        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
+        User user = userRepository.findById(study.getUser().getId()).orElseThrow(UserNotFound::new);
+
+        StudyUser studyUser = StudyUser.builder()
+                .study(study)
+                .user(user)
+                .status(StudyStatus.PROGRESSED)
+                .build();
+
+        studyUserRepository.save(studyUser);
+    }
+
+    @Override
+    public void refuseStudy(Long studyId) {
+        studyRepository.updateStudyStatus(StudyStatus.REFUSED, studyId);
     }
 }
