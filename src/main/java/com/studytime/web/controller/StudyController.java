@@ -32,4 +32,9 @@ public class StudyController {
     public StudyResponse getStudy(@PathVariable Long studyId){ //todo 테스트코드
         return studyService.getStudy(studyId);
     }
+
+   /* @PostMapping("/study/{studyId}")
+    public void joinStudy(@PathVariable Long studyId){
+        studyService.joinStudy(studyId);
+    }*/
 }

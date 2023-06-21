@@ -1,6 +1,7 @@
 package com.studytime.domain.study.service;
 
 import com.studytime.domain.enums.StudyStatus;
+import com.studytime.domain.enums.StudyUserStatus;
 import com.studytime.domain.study.Address;
 import com.studytime.domain.study.Study;
 import com.studytime.domain.study.repository.StudyRepository;
@@ -88,6 +89,7 @@ public class StudyServiceImpl implements StudyService{
                 .study(study)
                 .user(user)
                 .status(StudyStatus.PROGRESSED)
+                .studyUserStatus(StudyUserStatus.GENERAL)
                 .build();
 
         studyUserRepository.save(studyUser);

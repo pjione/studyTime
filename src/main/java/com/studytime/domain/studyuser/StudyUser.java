@@ -1,5 +1,6 @@
 package com.studytime.domain.studyuser;
 
+import com.studytime.domain.enums.StudyUserStatus;
 import com.studytime.domain.study.Study;
 import com.studytime.domain.enums.StudyStatus;
 import com.studytime.domain.user.User;
@@ -24,11 +25,12 @@ public class StudyUser {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "study_id")
     private Study study;
-
+    private StudyUserStatus studyUserStatus;
     @Builder
-    public StudyUser(StudyStatus status, User user, Study study) {
+    public StudyUser(StudyStatus status, User user, Study study, StudyUserStatus studyUserStatus) {
         this.status = status;
         this.user = user;
         this.study = study;
+        this.studyUserStatus = studyUserStatus;
     }
 }
