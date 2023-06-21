@@ -96,6 +96,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
+    @Transactional
     public void refuseStudy(Long studyId) {
         studyRepository.updateStudyStatus(StudyStatus.REFUSED, studyId);
     }
