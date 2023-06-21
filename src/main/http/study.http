@@ -1,3 +1,11 @@
+PATCH http://localhost/study/refuse/1260
+
+###
+PATCH http://localhost/study/approve/1261
+
+
+
+###
 GET http://localhost/study
 Accept: application/json
 Content-Type: application/json

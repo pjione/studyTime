@@ -13,6 +13,8 @@ import java.time.LocalDate;
 
 @Getter
 public class StudyResponse {
+
+    private final Long id;
     private final String title;
     private final String content;
     private final String userAccount;
@@ -28,6 +30,7 @@ public class StudyResponse {
 
     @Builder
     public StudyResponse(Study study) {
+        this.id = study.getId();
         this.title = study.getTitle();
         this.content = study.getContent();
         this.userAccount = study.getUser().getUserAccount();
