@@ -89,7 +89,7 @@ public class StudyServiceImpl implements StudyService{
                 .study(study)
                 .user(user)
                 .status(StudyStatus.PROGRESSED)
-                .studyUserStatus(StudyUserStatus.GENERAL)
+                .studyUserStatus(StudyUserStatus.LEADER)
                 .build();
 
         studyUserRepository.save(studyUser);

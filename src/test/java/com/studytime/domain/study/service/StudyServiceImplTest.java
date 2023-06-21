@@ -6,6 +6,8 @@ import com.studytime.domain.enums.ProcessType;
 import com.studytime.domain.study.Address;
 import com.studytime.domain.study.Study;
 import com.studytime.domain.study.repository.StudyRepository;
+import com.studytime.domain.study.repository.StudyUserRepository;
+import com.studytime.domain.studyuser.StudyUser;
 import com.studytime.domain.user.Gender;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
@@ -37,6 +39,9 @@ class StudyServiceImplTest {
     private StudyRepository studyRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private StudyUserRepository studyUserRepository;
 
     private User user;
 
@@ -153,6 +158,44 @@ class StudyServiceImplTest {
 
         //then
         assertEquals("안녕하세요.1", studyResponse.getTitle());
+
+    }
+
+    @Test
+    @DisplayName("스터디 등록 승인 - 관리자")
+    void approveStudy(){
+
+        LocalDate expiredAt = LocalDate.of(2023, 6, 25);
+
+        Study study = Study.builder()
+                .user(user)
+                .period(Period.ONE)
+                .address(Address.builder()
+                        .zipcode("10123")
+                        .city("서울시")
+                        .street("테헤란로")
+                        .build())
+                .expiredAt(expiredAt)
+                .content("코딩스터디입니다.")
+                .title("안녕하세요.")
+                .category(Category.CODING)
+                .recruitCnt(3)
+                .startedAt(expiredAt.plusDays(2))
+                .processType(ProcessType.ON)
+                .build();
+
+        studyRepository.save(study);
+
+        //when
+        studyService.approveStudy(study.getId());
+
+        //then
+        StudyUser studyUser = studyUserRepository.findAll().get(0);
+
+        assertEquals("PROGRESSED", studyUser.getStatus().name());
+        assertEquals("LEADER", studyUser.getStudyUserStatus().name());
+        assertEquals(study, studyUser.getStudy());
+        assertEquals(user, studyUser.getUser());
 
     }
 
