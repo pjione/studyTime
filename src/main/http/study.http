@@ -1,3 +1,12 @@
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+
+{
+
+}
+
+###
 POST http://localhost/study
 Content-Type: application/json
 
@@ -13,3 +22,8 @@ Content-Type: application/json
   "processType" : "ON",
   "startedAt" : "2023-06-27"
 }
+
+
+
+
+
