@@ -7,10 +7,7 @@ import com.studytime.web.response.ListResult;
 import com.studytime.web.response.StudyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,10 @@ public class StudyController {
     public ListResult<List<StudyResponse>> studyList(@RequestBody StudySearchRequest studySearchRequest){
         List<StudyResponse> studyList = studyService.studyList(studySearchRequest);
         return new ListResult<>(studyList);
+    }
+
+    @GetMapping("/study/{studyId}")
+    public StudyResponse getStudy(@PathVariable Long studyId){ //todo 테스트코드
+        return studyService.getStudy(studyId);
     }
 }

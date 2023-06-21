@@ -1,11 +1,14 @@
+GET http://localhost/study/1262
+
+###스터디 등록 거절
 PATCH http://localhost/study/refuse/1260
 
-###
+###스터디 등록 승인
 PATCH http://localhost/study/approve/1261
 
 
 
-###
+###스터디 목록
 GET http://localhost/study
 Accept: application/json
 Content-Type: application/json
@@ -14,7 +17,7 @@ Content-Type: application/json
 
 }
 
-###
+###스터디 등록
 POST http://localhost/study
 Content-Type: application/json
 
