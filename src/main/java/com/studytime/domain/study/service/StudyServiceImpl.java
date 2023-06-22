@@ -118,4 +118,17 @@ public class StudyServiceImpl implements StudyService{
 
         studyUserRepository.save(studyUser);
     }
+
+    @Override
+    @Transactional
+    public void approveStudyUser(Long studyId, StudyJoinRequest studyJoinRequest) {
+
+        User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UnAuthorized::new);
+        Study findStudy = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
+        StudyUser findStudyUser = studyUserRepository.findByStudyIdAndUserId(studyId, user.getId()).orElseThrow(UserNotFound::new);
+
+        findStudy.addJoinCnt();
+        findStudyUser.changeStatus(StudyStatus.PROGRESSED);
+
+    }
 }

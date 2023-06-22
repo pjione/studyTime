@@ -1,3 +1,11 @@
+PATCH http://localhost:80/study/2023/approve
+Content-Type: application/json
+
+{
+  "userAccount" : "jiwona"
+}
+
+###스터디 참여
 POST http://localhost/study/2023
 Content-Type: application/json
 
@@ -6,7 +14,7 @@ Content-Type: application/json
 }
 
 
-###
+###스터디조회
 GET http://localhost/study/2023
 
 ###스터디 등록 거절

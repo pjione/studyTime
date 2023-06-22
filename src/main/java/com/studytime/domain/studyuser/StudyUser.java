@@ -37,4 +37,8 @@ public class StudyUser {
         this.study = study;
         this.studyUserStatus = studyUserStatus;
     }
+
+    public void changeStatus(StudyStatus status){
+        this.status = status;
+    }
 }

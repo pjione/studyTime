@@ -38,4 +38,9 @@ public class StudyController {
     public void joinStudy(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
         studyService.joinStudy(studyId, studyJoinRequest);
     }
+
+    @PatchMapping("/study/{studyId}/approve") //todo 테스트코드 and 승인 거절
+    public void approveStudyUser(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
+        studyService.approveStudyUser(studyId, studyJoinRequest);
+    }
 }

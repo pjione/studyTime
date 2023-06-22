@@ -63,7 +63,7 @@ public class Study extends BaseTimeEntity {
     public void addJoinCnt(){
         joinCnt++;
     }
-    public void changeStatus(StudyStatus status){
+  /*  public void changeStatus(StudyStatus status){
         this.status = status;
-    }
+    }*/
 }
