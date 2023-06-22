@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class StudyJoinRequest {
 
     @NotBlank(message = "아이디를 불러올 수 없습니다.")
