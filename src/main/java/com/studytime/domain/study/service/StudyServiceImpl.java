@@ -13,6 +13,7 @@ import com.studytime.exception.StudyNotFound;
 import com.studytime.exception.UnAuthorized;
 import com.studytime.exception.UserNotFound;
 import com.studytime.web.request.StudyAddRequest;
+import com.studytime.web.request.StudyJoinRequest;
 import com.studytime.web.request.StudySearchRequest;
 import com.studytime.web.response.StudyResponse;
 import lombok.RequiredArgsConstructor;
@@ -99,5 +100,22 @@ public class StudyServiceImpl implements StudyService{
     @Transactional
     public void refuseStudy(Long studyId) {
         studyRepository.updateStudyStatus(StudyStatus.REFUSED, studyId);
+    }
+
+    @Override
+    @Transactional
+    public void joinStudy(Long studyId, StudyJoinRequest studyJoinRequest) {
+
+        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
+        User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UserNotFound::new);
+
+        StudyUser studyUser = StudyUser.builder()
+                .study(study)
+                .user(user)
+                .status(StudyStatus.READY)
+                .studyUserStatus(StudyUserStatus.GENERAL)
+                .build();
+
+        studyUserRepository.save(studyUser);
     }
 }

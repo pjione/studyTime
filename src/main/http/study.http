@@ -1,10 +1,19 @@
-GET http://localhost/study/1779
+POST http://localhost/study/2023
+Content-Type: application/json
+
+{
+  "userAccount" : "jiwona"
+}
+
+
+###
+GET http://localhost/study/2023
 
 ###스터디 등록 거절
 PATCH http://localhost/study/refuse/1779
 
 ###스터디 등록 승인
-PATCH http://localhost/study/approve/1779
+PATCH http://localhost/study/approve/2023
 
 
 

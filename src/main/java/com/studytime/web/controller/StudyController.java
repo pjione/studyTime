@@ -2,6 +2,7 @@ package com.studytime.web.controller;
 
 import com.studytime.domain.study.service.StudyService;
 import com.studytime.web.request.StudyAddRequest;
+import com.studytime.web.request.StudyJoinRequest;
 import com.studytime.web.request.StudySearchRequest;
 import com.studytime.web.response.ListResult;
 import com.studytime.web.response.StudyResponse;
@@ -33,8 +34,8 @@ public class StudyController {
         return studyService.getStudy(studyId);
     }
 
-   /* @PostMapping("/study/{studyId}")
-    public void joinStudy(@PathVariable Long studyId){
-        studyService.joinStudy(studyId);
-    }*/
+    @PostMapping("/study/{studyId}") //todo 테스트코드 and 중복 참여 안되게 수정
+    public void joinStudy(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
+        studyService.joinStudy(studyId, studyJoinRequest);
+    }
 }
