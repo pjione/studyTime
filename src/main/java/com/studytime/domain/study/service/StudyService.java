@@ -16,4 +16,5 @@ public interface StudyService {
     void refuseStudy(Long studyId);
     void joinStudy(Long studyId, StudyJoinRequest studyJoinRequest);
     void approveStudyUser(Long studyId, StudyJoinRequest studyJoinRequest);
+    void refuseStudyUser(Long studyId, StudyJoinRequest studyJoinRequest);
 }

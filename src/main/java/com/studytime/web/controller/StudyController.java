@@ -39,8 +39,13 @@ public class StudyController {
         studyService.joinStudy(studyId, studyJoinRequest);
     }
 
-    @PatchMapping("/study/{studyId}/approve") //todo 테스트코드 and 승인 거절
+    @PatchMapping("/study/{studyId}/approve") //todo 테스트코드
     public void approveStudyUser(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
         studyService.approveStudyUser(studyId, studyJoinRequest);
+    }
+
+    @PatchMapping("/study/{studyId}/refuse") //todo 테스트코드
+    public void refuseStudyUser(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
+        studyService.refuseStudyUser(studyId, studyJoinRequest);
     }
 }

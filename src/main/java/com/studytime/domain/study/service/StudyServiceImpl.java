@@ -131,4 +131,10 @@ public class StudyServiceImpl implements StudyService{
         findStudyUser.changeStatus(StudyStatus.PROGRESSED);
 
     }
+
+    @Override
+    public void refuseStudyUser(Long studyId, StudyJoinRequest studyJoinRequest) {
+        //todo 페이징 동적쿼리 수정, approvestudyuser 쿼리dsl로 변경
+
+    }
 }
