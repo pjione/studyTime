@@ -1,0 +1,556 @@
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+Content-Length: 41
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "option": "all",
+  "keyword": "목"
+}
+
+<> 2023-06-26T191725.200.json
+
+###
+
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+Content-Length: 43
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "option": "title",
+  "keyword": "목"
+}
+
+<> 2023-06-26T191641.200.json
+
+###
+
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+Content-Length: 43
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "option": "title",
+  "keyword": "제"
+}
+
+<> 2023-06-26T191529.200.json
+
+###
+
+POST http://localhost/study
+Content-Type: application/json
+Content-Length: 265
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title" : "목입니다.",
+  "content" : "내용입니다.",
+  "userAccount" : "jiwon",
+  "city" : "서울시",
+  "period" : "one",
+  "expiredAt" : "2023-06-25",
+  "category" : "coding",
+  "recruitCnt" : 3,
+  "processType" : "ON",
+  "startedAt" : "2023-06-27"
+}
+
+###
+
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+Content-Length: 43
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "option": "title",
+  "keyword": "제"
+}
+
+<> 2023-06-26T191457.200.json
+
+###
+
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+Content-Length: 4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+
+}
+
+<> 2023-06-26T191355.200.json
+
+###
+
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+Content-Length: 4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+
+}
+
+<> 2023-06-26T191326.200.json
+
+###
+
+POST http://localhost/study
+Content-Type: application/json
+Content-Length: 268
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title" : "제목입니다.",
+  "content" : "내용입니다.",
+  "userAccount" : "jiwon",
+  "city" : "서울시",
+  "period" : "one",
+  "expiredAt" : "2023-06-25",
+  "category" : "coding",
+  "recruitCnt" : 3,
+  "processType" : "ON",
+  "startedAt" : "2023-06-27"
+}
+
+###
+
+POST http://localhost/join
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount": "jiwon",
+  "password" : "1234",
+  "name" : "지원",
+  "gender" : "man"
+}
+
+###
+
+PATCH http://localhost:80/study/1/approve
+Content-Type: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwonz"
+}
+
+###
+
+POST http://localhost/study/1
+Content-Type: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwonz"
+}
+
+###
+
+POST http://localhost/join
+Content-Type: application/json
+Content-Length: 93
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount": "jiwonz",
+  "password" : "1234",
+  "name" : "지원",
+  "gender" : "man"
+}
+
+###
+
+PATCH http://localhost/study/approve/1
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+POST http://localhost/study
+Content-Type: application/json
+Content-Length: 268
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title" : "제목입니다.",
+  "content" : "내용입니다.",
+  "userAccount" : "jiwon",
+  "city" : "서울시",
+  "period" : "one",
+  "expiredAt" : "2023-06-25",
+  "category" : "coding",
+  "recruitCnt" : 3,
+  "processType" : "ON",
+  "startedAt" : "2023-06-27"
+}
+
+###
+
+POST http://localhost/study
+Content-Type: application/json
+Content-Length: 269
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title" : "제목입니다.",
+  "content" : "내용입니다.",
+  "userAccount" : "jiwona",
+  "city" : "서울시",
+  "period" : "one",
+  "expiredAt" : "2023-06-25",
+  "category" : "coding",
+  "recruitCnt" : 3,
+  "processType" : "ON",
+  "startedAt" : "2023-06-27"
+}
+
+<> 2023-06-26T175530.401.json
+
+###
+
+POST http://localhost/join
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount": "jiwon",
+  "password" : "1234",
+  "name" : "지원",
+  "gender" : "man"
+}
+
+###
+
+PATCH http://localhost:80/study/1/approve
+Content-Type: application/json
+Content-Length: 29
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwon"
+}
+
+###
+
+POST http://localhost/study/1
+Content-Type: application/json
+Content-Length: 29
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwon"
+}
+
+###
+
+POST http://localhost/join
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount": "jiwon",
+  "password" : "1234",
+  "name" : "지원",
+  "gender" : "man"
+}
+
+###
+
+PATCH http://localhost:80/study/1/approve
+Content-Type: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwona"
+}
+
+<> 2023-06-26T142750.500.json
+
+###
+
+POST http://localhost/study/1
+Content-Type: application/json
+Content-Length: 28
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwo"
+}
+
+<> 2023-06-26T142735.404.json
+
+###
+
+POST http://localhost/study/1
+Content-Type: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwona"
+}
+
+###
+
+POST http://localhost/study/2023
+Content-Type: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount" : "jiwona"
+}
+
+<> 2023-06-26T142603.404.json
+
+###
+
+GET http://localhost/study/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-26T142534.200.json
+
+###
+
+PATCH http://localhost/study/approve/1
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+PATCH http://localhost/study/approve/2023
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-26T142501.404.json
+
+###
+
+GET http://localhost/study
+Accept: application/json
+Content-Type: application/json
+Content-Length: 4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+
+}
+
+<> 2023-06-26T142414.200.json
+
+###
+
+POST http://localhost/study
+Content-Type: application/json
+Content-Length: 269
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title" : "제목입니다.",
+  "content" : "내용입니다.",
+  "userAccount" : "jiwona",
+  "city" : "서울시",
+  "period" : "one",
+  "expiredAt" : "2023-06-25",
+  "category" : "coding",
+  "recruitCnt" : 3,
+  "processType" : "ON",
+  "startedAt" : "2023-06-27"
+}
+
+###
+
+POST http://localhost/study
+Content-Type: application/json
+Content-Length: 268
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=6C56387624EAA8FFB5DC36E73C6C6B44
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title" : "제목입니다.",
+  "content" : "내용입니다.",
+  "userAccount" : "jiwon",
+  "city" : "서울시",
+  "period" : "one",
+  "expiredAt" : "2023-06-25",
+  "category" : "coding",
+  "recruitCnt" : 3,
+  "processType" : "ON",
+  "startedAt" : "2023-06-27"
+}
+
+<> 2023-06-26T142353.401.json
+
+###
+
+POST http://localhost/login
+Content-Type: application/json
+Content-Length: 48
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"userAccount": "jiwona",
+"password" : "1234"
+}
+
+<> 2023-06-26T142346.200.txt
+
+###
+
+POST http://localhost/login
+Content-Type: application/json
+Content-Length: 47
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"userAccount": "jiwon",
+"password" : "1234"
+}
+
+<> 2023-06-26T142338.401.json
+
+###
+
+POST http://localhost/join
+Content-Type: application/json
+Content-Length: 93
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount": "jiwona",
+  "password" : "1234",
+  "name" : "지원",
+  "gender" : "man"
+}
+
+###
+
+POST http://localhost/join
+Content-Type: application/json
+Content-Length: 93
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "userAccount": "jiwona",
+  "password" : "1234",
+  "name" : "지원",
+  "gender" : "man"
+}
+
+<> 2023-06-26T141938.500.json
+
+###
+

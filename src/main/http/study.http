@@ -2,7 +2,7 @@ PATCH http://localhost:80/study/1/approve
 Content-Type: application/json
 
 {
-  "userAccount" : "jiwon"
+  "userAccount" : "jiwonz"
 }
 
 ###스터디 참여
@@ -10,7 +10,7 @@ POST http://localhost/study/1
 Content-Type: application/json
 
 {
-  "userAccount" : "jiwon"
+  "userAccount" : "jiwonz"
 }
 
 
@@ -31,7 +31,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-
+  "option": "all",
+  "keyword": "목"
 }
 
 ###스터디 등록
@@ -39,9 +40,9 @@ POST http://localhost/study
 Content-Type: application/json
 
 {
-  "title" : "제목입니다.",
+  "title" : "목입니다.",
   "content" : "내용입니다.",
-  "userAccount" : "jiwona",
+  "userAccount" : "jiwon",
   "city" : "서울시",
   "period" : "one",
   "expiredAt" : "2023-06-25",

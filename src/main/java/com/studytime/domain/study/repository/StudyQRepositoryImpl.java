@@ -1,5 +1,6 @@
 package com.studytime.domain.study.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.studytime.domain.enums.StudyStatus;
 import com.studytime.domain.study.QStudy;
@@ -18,30 +19,34 @@ public class StudyQRepositoryImpl implements StudyQRepository{
     @Override
     public List<Study> getList(StudySearchRequest studySearchRequest) {
 
-        if(studySearchRequest.getOption().equals("title")){
-            return searchByTitle(studySearchRequest);
-        }
-        return searchByTitleOrContent(studySearchRequest);
-    }
-
-    private List<Study> searchByTitleOrContent(StudySearchRequest studySearchRequest) {
-        return jpaQueryFactory.selectFrom(QStudy.study)
+        return jpaQueryFactory
+                .selectFrom(QStudy.study)
                 .limit(studySearchRequest.getSize())
                 .offset(studySearchRequest.getOffset())
                 .orderBy(QStudy.study.id.desc())
-                .where(QStudy.study.title.contains(studySearchRequest.getKeyword())
-                        .or(QStudy.study.content.contains(studySearchRequest.getKeyword())))
+                .where(searchByTitle(studySearchRequest),
+                        searchByContent(studySearchRequest),
+                        searchByAll(studySearchRequest))
                 .fetch();
+
     }
 
-    private List<Study> searchByTitle(StudySearchRequest studySearchRequest) {
-        return jpaQueryFactory.selectFrom(QStudy.study)
-                .limit(studySearchRequest.getSize())
-                .offset(studySearchRequest.getOffset())
-                .orderBy(QStudy.study.id.desc())
-                .where(QStudy.study.title.contains(studySearchRequest.getKeyword()))
-                .fetch();
+    private static BooleanExpression searchByAll(StudySearchRequest studySearchRequest) {
+        return studySearchRequest.getOption().equals("all") ?
+                QStudy.study.title.contains(studySearchRequest.getKeyword())
+                        .or(QStudy.study.content.contains(studySearchRequest.getKeyword())) : null;
     }
+
+    private static BooleanExpression searchByContent(StudySearchRequest studySearchRequest) {
+        return studySearchRequest.getOption().equals("content") ?
+                QStudy.study.title.contains(studySearchRequest.getKeyword()) : null;
+    }
+
+    private static BooleanExpression searchByTitle(StudySearchRequest studySearchRequest) {
+        return studySearchRequest.getOption().equals("title") ?
+                QStudy.study.title.contains(studySearchRequest.getKeyword()) : null;
+    }
+
 
     @Override
     @Transactional
