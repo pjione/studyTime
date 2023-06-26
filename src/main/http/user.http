@@ -3,7 +3,7 @@ POST http://localhost/join
 Content-Type: application/json
 
 {
-  "userAccount": "jiwona",
+  "userAccount": "jiwon",
   "password" : "1234",
   "name" : "지원",
   "gender" : "man"
@@ -14,7 +14,7 @@ POST http://localhost/login
 Content-Type: application/json
 
 {
-"userAccount": "jiwon",
+"userAccount": "jiwona",
 "password" : "1234"
 }
 

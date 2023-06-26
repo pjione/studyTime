@@ -1,27 +1,27 @@
-PATCH http://localhost:80/study/2023/approve
+PATCH http://localhost:80/study/1/approve
 Content-Type: application/json
 
 {
-  "userAccount" : "jiwona"
+  "userAccount" : "jiwon"
 }
 
 ###스터디 참여
-POST http://localhost/study/2023
+POST http://localhost/study/1
 Content-Type: application/json
 
 {
-  "userAccount" : "jiwona"
+  "userAccount" : "jiwon"
 }
 
 
 ###스터디조회
-GET http://localhost/study/2023
+GET http://localhost/study/1
 
 ###스터디 등록 거절
 PATCH http://localhost/study/refuse/1779
 
 ###스터디 등록 승인
-PATCH http://localhost/study/approve/2023
+PATCH http://localhost/study/approve/1
 
 
 
@@ -41,7 +41,7 @@ Content-Type: application/json
 {
   "title" : "제목입니다.",
   "content" : "내용입니다.",
-  "userAccount" : "jiwon",
+  "userAccount" : "jiwona",
   "city" : "서울시",
   "period" : "one",
   "expiredAt" : "2023-06-25",
