@@ -18,7 +18,7 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @PostMapping("/login") //todo 테스트 코드
+    @PostMapping("/login")
     public String login(@RequestBody @Validated LoginRequest loginRequest, HttpServletRequest httpServletRequest){
 
         String loginId = loginService.login(loginRequest);
