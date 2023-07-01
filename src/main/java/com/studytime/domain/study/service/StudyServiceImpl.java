@@ -9,6 +9,7 @@ import com.studytime.domain.study.repository.StudyUserRepository;
 import com.studytime.domain.studyuser.StudyUser;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
+import com.studytime.exception.AlreadyExistsStudyUser;
 import com.studytime.exception.StudyNotFound;
 import com.studytime.exception.UnAuthorized;
 import com.studytime.exception.UserNotFound;
@@ -108,6 +109,8 @@ public class StudyServiceImpl implements StudyService{
 
         Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
         User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UserNotFound::new);
+
+        studyUserRepository.findByStudyIdAndUserId(study.getId(), user.getId()).orElseThrow(AlreadyExistsStudyUser::new);
 
         StudyUser studyUser = StudyUser.builder()
                 .study(study)
