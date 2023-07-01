@@ -30,7 +30,7 @@ public class StudyController {
     }
 
     @GetMapping("/study/{studyId}")
-    public StudyResponse getStudy(@PathVariable Long studyId){ //todo 테스트코드
+    public StudyResponse getStudy(@PathVariable Long studyId){
         return studyService.getStudy(studyId);
     }
 

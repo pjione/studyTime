@@ -47,8 +47,8 @@ public class StudyControllerTest {
     private User user;
     @AfterEach
     void clean(){
-        studyRepository.deleteAll();
-        userRepository.deleteAll();
+        studyRepository.deleteAllInBatch();
+        userRepository.deleteAllInBatch();
     }
     @BeforeEach
     void beforeSet(){
@@ -94,6 +94,48 @@ public class StudyControllerTest {
     @DisplayName("스터디 목록")
     void studyList() throws Exception {
 
+        addStudies();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("page", "2");
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/study")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(map)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("스터디 조회")
+    void getStudy() throws Exception {
+
+        Long id = addStudies().get(0).getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/study/{studyId}", id)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("안녕하세요.1"))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("스터디 조회시 잘못된 스터디ID 파라미터로 인해 익셉션 발생")
+    void getStudyFail() throws Exception {
+
+        Long id = addStudies().get(0).getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/study/{studyId}", id - 1)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("404"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("존재하지 않는 스터디입니다."))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+    private List<Study> addStudies() {
         LocalDate expiredAt = LocalDate.of(2023, 6, 25);
 
         List<Study> studyList = IntStream.range(0, 30)
@@ -116,15 +158,9 @@ public class StudyControllerTest {
 
         studyRepository.saveAll(studyList);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("page", "2");
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/study")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(map)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
+        return studyList;
     }
+
+
 
 }
