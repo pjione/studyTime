@@ -1,8 +1,6 @@
 package com.studytime.domain.study.service;
 
-import com.studytime.domain.enums.Category;
-import com.studytime.domain.enums.Period;
-import com.studytime.domain.enums.ProcessType;
+import com.studytime.domain.enums.*;
 import com.studytime.domain.study.Address;
 import com.studytime.domain.study.Study;
 import com.studytime.domain.study.repository.StudyRepository;
@@ -11,9 +9,14 @@ import com.studytime.domain.studyuser.StudyUser;
 import com.studytime.domain.user.Gender;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
+import com.studytime.exception.AlreadyExistsStudyUser;
+import com.studytime.exception.StudyNotFound;
+import com.studytime.exception.UserNotFound;
 import com.studytime.web.request.StudyAddRequest;
+import com.studytime.web.request.StudyJoinRequest;
 import com.studytime.web.request.StudySearchRequest;
 import com.studytime.web.response.StudyResponse;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -165,6 +169,76 @@ class StudyServiceImplTest {
     @DisplayName("스터디 등록 승인 - 관리자")
     void approveStudy(){
 
+        Study study = addStudyMethod();
+
+        //when
+        studyService.approveStudy(study.getId());
+
+        //then
+        StudyUser studyUser = studyUserRepository.findAll().get(0);
+
+        assertEquals("PROGRESSED", studyUser.getStatus().name());
+        assertEquals("LEADER", studyUser.getStudyUserStatus().name());
+        assertEquals(study, studyUser.getStudy());
+        assertEquals(user, studyUser.getUser());
+
+    }
+
+    @Test
+    @DisplayName("스터디 참여 신청시 스터디 유저 테이블에 승인 대기 상태로 정보가 들어간다.")
+    void joinStudy(){
+
+        Study study = addStudyMethod();
+
+        approveStudyMethod(study);
+
+        User findUser = newUserSet();
+
+        StudyJoinRequest studyJoinRequest = new StudyJoinRequest(findUser.getUserAccount());
+
+        //when
+        studyService.joinStudy(study.getId(), studyJoinRequest);
+
+        //then
+        StudyUser studyUser = studyUserRepository.findByStudyIdAndUserId(study.getId(), findUser.getId()).get();
+
+        assertThat(studyUser.getStudy()).isEqualTo(study);
+        assertThat(findUser).isEqualTo(studyUser.getUser());
+        assertThat(studyUser.getStudyUserStatus()).isEqualTo(StudyUserStatus.GENERAL);
+        assertThat(studyUser.getStatus()).isEqualTo(StudyStatus.READY);
+
+    }
+
+    @Test
+    @DisplayName("스터디 참여 신청시 중복 신청으로 예외가 발생한다.")
+    void joinStudyFail(){
+
+        Study study = addStudyMethod();
+
+        approveStudyMethod(study);
+
+        StudyJoinRequest studyJoinRequest = new StudyJoinRequest(user.getUserAccount());
+
+
+        //expected
+        assertThatThrownBy(() -> studyService.joinStudy(study.getId(), studyJoinRequest))
+                .isInstanceOf(AlreadyExistsStudyUser.class)
+                .hasMessage("해당 스터디에 이미 신청되었습니다.");
+    }
+
+    private User newUserSet() {
+        User user = User.builder()
+                .name("지원New")
+                .gender(Gender.valueOf("MAN"))
+                .phone("010-1111-1111")
+                .userAccount("newUser")
+                .password("1234")
+                .build();
+
+        return userRepository.save(user);
+    }
+
+    private Study addStudyMethod() {
         LocalDate expiredAt = LocalDate.of(2023, 6, 25);
 
         Study study = Study.builder()
@@ -184,19 +258,23 @@ class StudyServiceImplTest {
                 .processType(ProcessType.ON)
                 .build();
 
-        studyRepository.save(study);
-
-        //when
-        studyService.approveStudy(study.getId());
-
-        //then
-        StudyUser studyUser = studyUserRepository.findAll().get(0);
-
-        assertEquals("PROGRESSED", studyUser.getStatus().name());
-        assertEquals("LEADER", studyUser.getStudyUserStatus().name());
-        assertEquals(study, studyUser.getStudy());
-        assertEquals(user, studyUser.getUser());
-
+        return studyRepository.save(study);
     }
 
+
+    private void approveStudyMethod(Study study) {
+        studyRepository.updateStudyStatus(StudyStatus.PROGRESSED, study.getId());
+
+        Study findStudy = studyRepository.findById(study.getId()).orElseThrow(StudyNotFound::new);
+        User findUser = userRepository.findById(findStudy.getUser().getId()).orElseThrow(UserNotFound::new);
+
+        StudyUser studyUser = StudyUser.builder()
+                .study(study)
+                .user(user)
+                .status(StudyStatus.PROGRESSED)
+                .studyUserStatus(StudyUserStatus.LEADER)
+                .build();
+
+        studyUserRepository.save(studyUser);
+    }
 }

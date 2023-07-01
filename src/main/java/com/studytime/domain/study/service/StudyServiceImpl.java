@@ -110,7 +110,9 @@ public class StudyServiceImpl implements StudyService{
         Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
         User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UserNotFound::new);
 
-        studyUserRepository.findByStudyIdAndUserId(study.getId(), user.getId()).orElseThrow(AlreadyExistsStudyUser::new);
+        if(studyUserRepository.findByStudyIdAndUserId(study.getId(), user.getId()).isPresent()){
+            throw new AlreadyExistsStudyUser();
+        }
 
         StudyUser studyUser = StudyUser.builder()
                 .study(study)
