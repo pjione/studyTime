@@ -34,18 +34,18 @@ public class StudyController {
         return studyService.getStudy(studyId);
     }
 
-    @PostMapping("/study/{studyId}") //todo 테스트코드 and 중복 참여 안되게 수정
-    public void joinStudy(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
+    @PostMapping("/study/{studyId}")
+    public void joinStudy(@PathVariable Long studyId, @RequestBody @Validated StudyJoinRequest studyJoinRequest){
         studyService.joinStudy(studyId, studyJoinRequest);
     }
 
     @PatchMapping("/study/{studyId}/approve") //todo 테스트코드
-    public void approveStudyUser(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
+    public void approveStudyUser(@PathVariable Long studyId, @RequestBody @Validated StudyJoinRequest studyJoinRequest){
         studyService.approveStudyUser(studyId, studyJoinRequest);
     }
 
     @PatchMapping("/study/{studyId}/refuse") //todo 테스트코드
-    public void refuseStudyUser(@PathVariable Long studyId, @RequestBody StudyJoinRequest studyJoinRequest){
+    public void refuseStudyUser(@PathVariable Long studyId, @RequestBody @Validated StudyJoinRequest studyJoinRequest){
         studyService.refuseStudyUser(studyId, studyJoinRequest);
     }
 }
