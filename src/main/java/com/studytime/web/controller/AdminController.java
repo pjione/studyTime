@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class AdminController { //todo 테스트코드
+public class AdminController {
 
-    private final StudyRepository studyRepository;
     private final StudyService studyService;
     @PatchMapping("/study/approve/{studyId}")
     public void approveStudy(@PathVariable Long studyId){
