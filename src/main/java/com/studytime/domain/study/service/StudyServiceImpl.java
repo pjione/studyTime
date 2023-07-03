@@ -9,10 +9,7 @@ import com.studytime.domain.study.repository.StudyUserRepository;
 import com.studytime.domain.studyuser.StudyUser;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
-import com.studytime.exception.AlreadyExistsStudyUser;
-import com.studytime.exception.StudyNotFound;
-import com.studytime.exception.UnAuthorized;
-import com.studytime.exception.UserNotFound;
+import com.studytime.exception.*;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudyJoinRequest;
 import com.studytime.web.request.StudySearchRequest;
@@ -131,6 +128,10 @@ public class StudyServiceImpl implements StudyService{
         User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UnAuthorized::new);
         Study findStudy = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
         StudyUser findStudyUser = studyUserRepository.findByStudyIdAndUserId(studyId, user.getId()).orElseThrow(UserNotFound::new);
+
+        if(findStudyUser.getStatus().equals(StudyStatus.PROGRESSED)){
+            throw new AlreadyApprovedUser();
+        }
 
         findStudy.addJoinCnt();
         findStudyUser.changeStatus(StudyStatus.PROGRESSED);
