@@ -64,4 +64,36 @@ class StudyControllerMockTest {
 
                 .andDo(MockMvcResultHandlers.print());
     }
+
+    @Test
+    @DisplayName("스터디 참여 신청을 승인한다.")
+    void joinStudyApprove() throws Exception{
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userAccount", "jiwon1234");
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/study/{studyId}/approve", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(map)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("스터디 참여 신청을 승인시 userAccount 값이 안넘어와 익셉션이 발생한다.")
+    void joinStudyApproveFail() throws Exception{
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userAccount", "");
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/study/{studyId}/approve", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(map)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(400))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+
 }
