@@ -39,7 +39,6 @@ public class StudyController {
         studyService.joinStudy(studyId, studyJoinRequest);
     }
 
-    @PatchMapping("/study/{studyId}/approve") //todo 테스트코드
     public void approveStudyUser(@PathVariable Long studyId, @RequestBody @Validated StudyJoinRequest studyJoinRequest){
         studyService.approveStudyUser(studyId, studyJoinRequest);
     }

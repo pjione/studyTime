@@ -9,6 +9,7 @@ import com.studytime.domain.studyuser.StudyUser;
 import com.studytime.domain.user.Gender;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
+import com.studytime.exception.AlreadyApprovedUser;
 import com.studytime.exception.AlreadyExistsStudyUser;
 import com.studytime.exception.StudyNotFound;
 import com.studytime.exception.UserNotFound;
@@ -210,7 +211,7 @@ class StudyServiceImplTest {
     }
 
     @Test
-    @DisplayName("스터디 참여 신청시 중복 신청으로 예외가 발생한다.")
+    @DisplayName("스터디 참여 신청시 중복으로 익셉션이 발생한다.")
     void joinStudyFail(){
 
         Study study = addStudyMethod();
@@ -225,6 +226,67 @@ class StudyServiceImplTest {
                 .isInstanceOf(AlreadyExistsStudyUser.class)
                 .hasMessage("해당 스터디에 이미 신청되었습니다.");
     }
+
+    @Test
+    @DisplayName("스터디 참여 신청을 승인하여 스터디 상태 컬럼이 PROGRESSED 로 바뀐다.")
+    void joinStudyApprove(){
+
+        Study study = addStudyMethod();
+
+        approveStudyMethod(study);
+
+        User findUser = newUserSet();
+
+        StudyJoinRequest studyJoinRequest = new StudyJoinRequest(findUser.getUserAccount());
+
+        joinStudyMethod(study, studyJoinRequest);
+
+        //when
+        studyService.approveStudyUser(study.getId(), studyJoinRequest);
+
+        //then
+        StudyUser studyUser = studyUserRepository.findByStudyIdAndUserId(study.getId(), findUser.getId()).get();
+
+        assertThat(studyUser.getStatus()).isEqualTo(StudyStatus.PROGRESSED);
+    }
+
+    @Test
+    @DisplayName("스터디 참여 신청을 중복 승인하여 익셉션이 발생한다.")
+    void joinStudyApproveFail(){
+
+        Study study = addStudyMethod();
+
+        approveStudyMethod(study);
+
+        User findUser = newUserSet();
+
+        StudyJoinRequest studyJoinRequest = new StudyJoinRequest(findUser.getUserAccount());
+
+        joinStudyMethod(study, studyJoinRequest);
+
+        studyService.approveStudyUser(study.getId(), studyJoinRequest);
+
+        //expected
+        assertThatThrownBy(() -> studyService.approveStudyUser(study.getId(), studyJoinRequest))
+                .hasMessage("이미 승인된 회원입니다.")
+                .isInstanceOf(AlreadyApprovedUser.class);
+    }
+
+
+    private void joinStudyMethod(Study study, StudyJoinRequest studyJoinRequest) {
+        Study findStudy = studyRepository.findById(study.getId()).orElseThrow(StudyNotFound::new);
+        User findUserByAccount = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UserNotFound::new);
+
+        StudyUser studyUser = StudyUser.builder()
+                .study(findStudy)
+                .user(findUserByAccount)
+                .status(StudyStatus.READY)
+                .studyUserStatus(StudyUserStatus.GENERAL)
+                .build();
+
+        studyUserRepository.save(studyUser);
+    }
+    
 
     private User newUserSet() {
         User user = User.builder()
