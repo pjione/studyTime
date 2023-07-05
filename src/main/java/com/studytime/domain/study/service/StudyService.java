@@ -1,6 +1,6 @@
 package com.studytime.domain.study.service;
 
-import com.studytime.domain.enums.StudyStatus;
+import com.studytime.web.request.StudyModifyRequest;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudyJoinRequest;
 import com.studytime.web.request.StudySearchRequest;
@@ -17,4 +17,5 @@ public interface StudyService {
     void joinStudy(Long studyId, StudyJoinRequest studyJoinRequest);
     void approveStudyUser(Long studyId, StudyJoinRequest studyJoinRequest);
     void refuseStudyUser(Long studyId, StudyJoinRequest studyJoinRequest);
+    void modifyStudy(Long studyId, StudyModifyRequest studyModifyRequest);
 }

@@ -12,6 +12,7 @@ import com.studytime.domain.user.repository.UserRepository;
 import com.studytime.exception.*;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudyJoinRequest;
+import com.studytime.web.request.StudyModifyRequest;
 import com.studytime.web.request.StudySearchRequest;
 import com.studytime.web.response.StudyResponse;
 import lombok.RequiredArgsConstructor;
@@ -140,7 +141,7 @@ public class StudyServiceImpl implements StudyService{
 
     @Override
     public void refuseStudyUser(Long studyId, StudyJoinRequest studyJoinRequest) {
-        //todo approvestudyuser 쿼리dsl로 변경
+
         User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UnAuthorized::new);
         StudyUser findStudyUser = studyUserRepository.findByStudyIdAndUserId(studyId, user.getId()).orElseThrow(UserNotFound::new);
 
@@ -149,5 +150,17 @@ public class StudyServiceImpl implements StudyService{
         }
 
         findStudyUser.changeStatus(StudyStatus.REFUSED);
+    }
+
+    @Override
+    public void modifyStudy(Long studyId, StudyModifyRequest studyModifyRequest) {
+
+        Study findStudy = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
+        //todo entitygraph 적용하기
+        if(!findStudy.getUser().getUserAccount().equals(studyModifyRequest.getUserAccount())){
+            throw new UnAuthorized();
+        }
+        findStudy.changeStudy(studyModifyRequest);
+
     }
 }

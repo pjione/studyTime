@@ -3,6 +3,7 @@ package com.studytime.domain.study;
 import com.studytime.domain.BaseTimeEntity;
 import com.studytime.domain.enums.*;
 import com.studytime.domain.user.User;
+import com.studytime.web.request.StudyModifyRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -63,7 +64,18 @@ public class Study extends BaseTimeEntity {
     public void addJoinCnt(){
         joinCnt++;
     }
-  /*  public void changeStatus(StudyStatus status){
-        this.status = status;
-    }*/
+    public void changeStudy(StudyModifyRequest studyModifyRequest){
+        this.title = studyModifyRequest.getTitle();
+        this.content = studyModifyRequest.getContent();
+        this.recruitCnt = studyModifyRequest.getRecruitCnt();
+        this.category = studyModifyRequest.getCategory();
+        this.address = new Address(studyModifyRequest.getCity()
+                ,studyModifyRequest.getStreet()
+                ,studyModifyRequest.getZipcode());
+        this.startedAt = studyModifyRequest.getStartedAt();
+        this.expiredAt = studyModifyRequest.getExpiredAt();
+        this.period = studyModifyRequest.getPeriod();
+        this.processType = studyModifyRequest.getProcessType();
+
+    }
 }
