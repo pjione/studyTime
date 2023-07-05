@@ -272,6 +272,29 @@ class StudyServiceImplTest {
                 .isInstanceOf(AlreadyApprovedUser.class);
     }
 
+    @Test
+    @DisplayName("스터디 참여 신청을 거절하여 스터디 상태 컬럼이 REFUSED 로 바뀐다.")
+    void joinStudyRefuse(){
+
+        Study study = addStudyMethod();
+
+        approveStudyMethod(study);
+
+        User findUser = newUserSet();
+
+        StudyJoinRequest studyJoinRequest = new StudyJoinRequest(findUser.getUserAccount());
+
+        joinStudyMethod(study, studyJoinRequest);
+
+        //when
+        studyService.refuseStudyUser(study.getId(), studyJoinRequest);
+
+        //then
+        StudyUser studyUser = studyUserRepository.findByStudyIdAndUserId(study.getId(), findUser.getId()).get();
+
+        assertThat(studyUser.getStatus()).isEqualTo(StudyStatus.REFUSED);
+    }
+
 
     private void joinStudyMethod(Study study, StudyJoinRequest studyJoinRequest) {
         Study findStudy = studyRepository.findById(study.getId()).orElseThrow(StudyNotFound::new);
