@@ -3,6 +3,7 @@ package com.studytime.web.controller;
 import com.studytime.domain.study.service.StudyService;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudyJoinRequest;
+import com.studytime.web.request.StudyModifyRequest;
 import com.studytime.web.request.StudySearchRequest;
 import com.studytime.web.response.ListResult;
 import com.studytime.web.response.StudyResponse;
@@ -47,5 +48,10 @@ public class StudyController {
     @PatchMapping("/study/{studyId}/refuse") //todo 테스트코드
     public void refuseStudyUser(@PathVariable Long studyId, @RequestBody @Validated StudyJoinRequest studyJoinRequest){
         studyService.refuseStudyUser(studyId, studyJoinRequest);
+    }
+
+    @PatchMapping("/study/{studyId}")
+    public void modiftyStudy(@PathVariable Long studyId, @RequestBody @Validated StudyModifyRequest studyModifyRequest){
+        studyService.modifyStudy(studyId, studyModifyRequest);
     }
 }
