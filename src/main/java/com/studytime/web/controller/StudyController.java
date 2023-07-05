@@ -39,6 +39,7 @@ public class StudyController {
         studyService.joinStudy(studyId, studyJoinRequest);
     }
 
+    @PatchMapping("/study/{studyId}/approve")
     public void approveStudyUser(@PathVariable Long studyId, @RequestBody @Validated StudyJoinRequest studyJoinRequest){
         studyService.approveStudyUser(studyId, studyJoinRequest);
     }

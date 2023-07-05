@@ -140,7 +140,14 @@ public class StudyServiceImpl implements StudyService{
 
     @Override
     public void refuseStudyUser(Long studyId, StudyJoinRequest studyJoinRequest) {
-        //todo 페이징 동적쿼리 수정, approvestudyuser 쿼리dsl로 변경
+        //todo approvestudyuser 쿼리dsl로 변경
+        User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UnAuthorized::new);
+        StudyUser findStudyUser = studyUserRepository.findByStudyIdAndUserId(studyId, user.getId()).orElseThrow(UserNotFound::new);
 
+        if(findStudyUser.getStatus().equals(StudyStatus.REFUSED)){
+            throw new AlreadyApprovedUser();
+        }
+
+        findStudyUser.changeStatus(StudyStatus.REFUSED);
     }
 }

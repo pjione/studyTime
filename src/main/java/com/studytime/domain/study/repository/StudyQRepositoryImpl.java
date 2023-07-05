@@ -39,7 +39,7 @@ public class StudyQRepositoryImpl implements StudyQRepository{
 
     private static BooleanExpression searchByContent(StudySearchRequest studySearchRequest) {
         return studySearchRequest.getOption().equals("content") ?
-                QStudy.study.title.contains(studySearchRequest.getKeyword()) : null;
+                QStudy.study.content.contains(studySearchRequest.getKeyword()) : null;
     }
 
     private static BooleanExpression searchByTitle(StudySearchRequest studySearchRequest) {
