@@ -140,6 +140,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
+    @Transactional
     public void refuseStudyUser(Long studyId, StudyJoinRequest studyJoinRequest) {
 
         User user = userRepository.findByUserAccount(studyJoinRequest.getUserAccount()).orElseThrow(UnAuthorized::new);
@@ -153,6 +154,7 @@ public class StudyServiceImpl implements StudyService{
     }
 
     @Override
+    @Transactional
     public void modifyStudy(Long studyId, StudyModifyRequest studyModifyRequest) {
 
         Study findStudy = studyRepository.whenModifyFindById(studyId).orElseThrow(StudyNotFound::new);

@@ -271,7 +271,7 @@ class StudyServiceImplTest {
 
         //expected
         assertThatThrownBy(() -> studyService.approveStudyUser(study.getId(), studyJoinRequest))
-                .hasMessage("이미 승인된 회원입니다.")
+                .hasMessage("이미 처리된 회원입니다.")
                 .isInstanceOf(AlreadyApprovedUser.class);
     }
 
