@@ -50,8 +50,8 @@ public class StudyController {
         studyService.refuseStudyUser(studyId, studyJoinRequest);
     }
 
-    @PatchMapping("/study/{studyId}")
-    public void modiftyStudy(@PathVariable Long studyId, @RequestBody @Validated StudyModifyRequest studyModifyRequest){
+    @PatchMapping("/study/{studyId}") //todo 테스트코드
+    public void modifyStudy(@PathVariable Long studyId, @RequestBody @Validated StudyModifyRequest studyModifyRequest){
         studyService.modifyStudy(studyId, studyModifyRequest);
     }
 }

@@ -9,12 +9,10 @@ import com.studytime.domain.studyuser.StudyUser;
 import com.studytime.domain.user.Gender;
 import com.studytime.domain.user.User;
 import com.studytime.domain.user.repository.UserRepository;
-import com.studytime.exception.AlreadyApprovedUser;
-import com.studytime.exception.AlreadyExistsStudyUser;
-import com.studytime.exception.StudyNotFound;
-import com.studytime.exception.UserNotFound;
+import com.studytime.exception.*;
 import com.studytime.web.request.StudyAddRequest;
 import com.studytime.web.request.StudyJoinRequest;
+import com.studytime.web.request.StudyModifyRequest;
 import com.studytime.web.request.StudySearchRequest;
 import com.studytime.web.response.StudyResponse;
 import org.assertj.core.api.Assertions;
@@ -25,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.Formatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -50,10 +50,13 @@ class StudyServiceImplTest {
 
     private User user;
 
+    @Autowired
+    private EntityManager em;
+
     @BeforeEach
     void userSet(){
-        studyRepository.deleteAll();
-        userRepository.deleteAll();
+        studyRepository.deleteAllInBatch();
+        userRepository.deleteAllInBatch();
 
         user = User.builder()
                 .name("지원")
@@ -295,6 +298,46 @@ class StudyServiceImplTest {
         assertThat(studyUser.getStatus()).isEqualTo(StudyStatus.REFUSED);
     }
 
+    @Test
+    @DisplayName("본인이 등록한 스터디의 제목을 수정한다.")
+    void modifyStudy(){
+
+        Study study = addStudyMethod();
+        em.clear();
+
+        StudyModifyRequest modifyRequest = StudyModifyRequest.builder()
+                .title("수정된 제목")
+                .content("코딩스터디입니다.")
+                .userAccount("asdf1234")
+                .build();
+
+        //when
+        studyService.modifyStudy(study.getId(), modifyRequest);
+        em.flush();
+
+        //then
+        Study findStudy = studyRepository.findById(study.getId()).orElseThrow(StudyNotFound::new);
+        assertThat(findStudy.getTitle()).isEqualTo("수정된 제목");
+        assertThat(findStudy.getContent()).isEqualTo("코딩스터디입니다.");
+
+    }
+
+    @Test
+    @DisplayName("본인이 등록한 스터디가 아니여서 수정을 하면 에러가 발생해야 한다.")
+    void modifyStudyFail(){
+
+        Study study = addStudyMethod();
+        em.clear();
+
+        StudyModifyRequest modifyRequest = StudyModifyRequest.builder()
+                .title("수정된 제목")
+                .content("코딩스터디입니다.")
+                .userAccount("asdf12345")
+                .build();
+
+        //expected
+        assertThatThrownBy(() ->  studyService.modifyStudy(study.getId(), modifyRequest)).isInstanceOf(UnAuthorized.class);
+    }
 
     private void joinStudyMethod(Study study, StudyJoinRequest studyJoinRequest) {
         Study findStudy = studyRepository.findById(study.getId()).orElseThrow(StudyNotFound::new);
