@@ -155,8 +155,8 @@ public class StudyServiceImpl implements StudyService{
     @Override
     public void modifyStudy(Long studyId, StudyModifyRequest studyModifyRequest) {
 
-        Study findStudy = studyRepository.findById(studyId).orElseThrow(StudyNotFound::new);
-        //todo entitygraph 적용하기
+        Study findStudy = studyRepository.whenModifyFindById(studyId).orElseThrow(StudyNotFound::new);
+
         if(!findStudy.getUser().getUserAccount().equals(studyModifyRequest.getUserAccount())){
             throw new UnAuthorized();
         }
