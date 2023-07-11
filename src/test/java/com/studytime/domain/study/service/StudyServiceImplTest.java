@@ -124,6 +124,8 @@ class StudyServiceImplTest {
 
         studyRepository.saveAll(studyList);
 
+        em.clear();
+
         StudySearchRequest searchRequest = StudySearchRequest.builder()
                 .build();
         //when

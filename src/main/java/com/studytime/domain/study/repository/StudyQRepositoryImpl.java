@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.studytime.domain.enums.StudyStatus;
 import com.studytime.domain.study.QStudy;
 import com.studytime.domain.study.Study;
+import com.studytime.domain.user.QUser;
 import com.studytime.web.request.StudySearchRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class StudyQRepositoryImpl implements StudyQRepository{
                 .limit(studySearchRequest.getSize())
                 .offset(studySearchRequest.getOffset())
                 .orderBy(QStudy.study.id.desc())
+                .join(QStudy.study.user, QUser.user).fetchJoin()
                 .where(searchByTitle(studySearchRequest),
                         searchByContent(studySearchRequest),
                         searchByAll(studySearchRequest))
