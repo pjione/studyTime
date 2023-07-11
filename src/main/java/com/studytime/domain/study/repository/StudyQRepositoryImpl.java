@@ -31,18 +31,18 @@ public class StudyQRepositoryImpl implements StudyQRepository{
 
     }
 
-    private static BooleanExpression searchByAll(StudySearchRequest studySearchRequest) {
+    private BooleanExpression searchByAll(StudySearchRequest studySearchRequest) {
         return studySearchRequest.getOption().equals("all") ?
                 QStudy.study.title.contains(studySearchRequest.getKeyword())
                         .or(QStudy.study.content.contains(studySearchRequest.getKeyword())) : null;
     }
 
-    private static BooleanExpression searchByContent(StudySearchRequest studySearchRequest) {
+    private BooleanExpression searchByContent(StudySearchRequest studySearchRequest) {
         return studySearchRequest.getOption().equals("content") ?
                 QStudy.study.content.contains(studySearchRequest.getKeyword()) : null;
     }
 
-    private static BooleanExpression searchByTitle(StudySearchRequest studySearchRequest) {
+    private BooleanExpression searchByTitle(StudySearchRequest studySearchRequest) {
         return studySearchRequest.getOption().equals("title") ?
                 QStudy.study.title.contains(studySearchRequest.getKeyword()) : null;
     }
